@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}SecureTalk - Secure Encrypted Messaging{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center">
+    <div class="col-md-8 text-center">
+        <div class="jumbotron py-5">
+            <h1 class="display-4">Welcome to SecureTalk</h1>
+            <p class="lead">A secure, real-time encrypted chat application for private communications.</p>
+            <hr class="my-4">
+            <p>SecureTalk uses end-to-end encryption to ensure your messages remain private and secure.</p>
+            
+            <div class="features mt-5">
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-lock fa-3x mb-3 text-primary"></i>
+                                <h5 class="card-title">End-to-End Encryption</h5>
+                                <p class="card-text">Your messages are encrypted before they leave your device and can only be decrypted by the intended recipient.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-shield-alt fa-3x mb-3 text-primary"></i>
+                                <h5 class="card-title">Secure Authentication</h5>
+                                <p class="card-text">Strong password hashing and secure session management protect your account.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-check-circle fa-3x mb-3 text-primary"></i>
+                                <h5 class="card-title">Message Integrity</h5>
+                                <p class="card-text">Digital signatures ensure your messages haven't been tampered with during transmission.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-5">
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('chat.dashboard') }}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-comments me-2"></i>Go to Chat
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg me-3">
+                        <i class="fas fa-user-plus me-2"></i>Register
+                    </a>
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-outline-primary btn-lg">
+                        <i class="fas fa-sign-in-alt me-2"></i>Login
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

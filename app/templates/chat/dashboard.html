@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Chat Dashboard{% endblock %}
+
+{% block content %}
+<div class="chat-container">
+    <!-- Users Sidebar -->
+    <div class="users-sidebar">
+        <div class="p-3 border-bottom">
+            <h5 class="mb-0">Contacts</h5>
+        </div>
+        <div id="users-list">
+            {% for user in users %}
+            <div class="user-item" data-user-id="{{ user.id }}" id="user-{{ user.id }}">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        {{ user.username[0] | upper }}
+                    </div>
+                    <div class="user-details">
+                        <div class="user-name">{{ user.username }}</div>
+                        <div class="user-status">
+                            <span class="status-indicator {% if user.is_online %}online{% else %}offline{% endif %}"></span>
+                            <span class="status-text">{% if user.is_online %}Online{% else %}Offline{% endif %}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="unread-count" style="display: none;"></div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- Chat Area -->
+    <div class="chat-area">
+        <!-- Chat Header -->
+        <div class="chat-header" id="chat-header" style="display: none;">
+            <div class="d-flex align-items-center">
+                <div class="user-avatar me-2" id="chat-header-avatar">
+                </div>
+                <div>
+                    <div id="chat-header-username"></div>
+                    <div class="small">
+                        <span class="status-indicator" id="chat-header-status"></span>
+                        <span id="chat-header-status-text"></span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="tooltip" title="Refresh">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Messages Container -->
+        <div id="messages" class="messages-container"></div>
+        
+        <!-- Typing Indicator -->
+        <div id="typing-indicator" class="typing-indicator ms-3 mb-2" style="display: none;"></div>
+        
+        <!-- Message Input -->
+        <div class="message-input-container" id="message-input-container" style="display: none;">
+            <form id="message-form" class="message-form">
+                <input type="hidden" id="current-user-id" value="{{ current_user.id }}">
+                <input type="hidden" id="recipient-id" value="">
+                <input type="text" id="message-input" class="message-input" placeholder="Type a message..." autocomplete="off">
+                <button type="submit" class="message-send-btn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+        
+        <!-- No Chat Selected -->
+        <div class="d-flex flex-column align-items-center justify-content-center h-100 text-center p-4" id="no-chat-selected">
+            <i class="fas fa-comments fa-4x mb-3 text-muted"></i>
+            <h4>Welcome to SecureTalk</h4>
+            <p class="text-muted">Select a contact to start a secure conversation</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+{% endblock %}

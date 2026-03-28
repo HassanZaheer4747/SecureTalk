@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container text-center error-page">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="error-code">500</div>
+            <h1>Internal Server Error</h1>
+            <p class="lead">Something went wrong on our end.</p>
+            <p>Our team has been notified of this issue. Please try again later or contact support if the problem persists.</p>
+            <a href="{{ url_for('main.index') }}" class="btn btn-primary">Go to Home</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
